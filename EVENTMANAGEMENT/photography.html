@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photography Form</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .form-container h2 {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      font-size: 1em;
+      color: #666;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="number"],
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+      color: #333;
+      outline: none;
+    }
+
+    .form-group input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .form-group textarea {
+      height: 100px;
+    }
+
+    .form-group .checkbox-label {
+      display: flex;
+      align-items: center;
+      font-size: 1em;
+      color: #333;
+    }
+
+    button[type="submit"] {
+      background-color: #738fc2;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1em;
+      width: 100%;
+      text-align: center;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #5f77a6;
+    }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Photography Form</h2>
+    <form>
+      <div class="form-group">
+        <label for="task-id">Task ID *</label>
+        <input type="text" id="task-id" placeholder="Enter Task ID" required>
+      </div>
+      <div class="form-group">
+        <label for="venue">Name of the Venue *</label>
+        <input type="text" id="venue" placeholder="Enter Venue Name" required>
+      </div>
+      <div class="form-group">
+        <label for="requirements">Photography Requirements</label>
+        <textarea id="requirements" placeholder="Enter any special photography requirements"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="photography" name="photography"> Photography
+        </label>
+      </div>
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="video-recording" name="video-recording"> Video Recording
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="time">Preferred Time</label>
+        <input type="text" id="time" placeholder="Enter preferred time">
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+    <div class="form-footer">
+      <p>Note: Fields marked with * are mandatory.</p>
+    </div>
+  </div>
+
+</body>
+</html>

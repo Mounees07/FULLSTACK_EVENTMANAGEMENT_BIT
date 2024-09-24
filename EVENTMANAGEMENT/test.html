@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Form</title>
+    <link rel="stylesheet" href="test.css">
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+        }
+        .radio-group {
+            display: flex;
+            align-items: center; /* Align items vertically in the center */
+            gap: 20px; /* Space between Yes and No */
+            margin-bottom: 15px; /* Space below each group */
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center; /* Align the radio button and text */
+        }
+        .radio-group input[type="radio"] {
+            margin-right: 5px; /* Space between radio button and text */
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px; /* Space below labels */
+        }
+        .form-container textarea {
+            width: 100%;
+            height: 100px;
+        }
+        .form-container button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Event Form</h1>
+
+        <!-- Organizer Details -->
+        <div class="organizer-details">
+            <h2>Organizer Details</h2>
+            <label for="organizer-name">Name:</label>
+            <input type="text" id="organizer-name" name="organizer-name">
+
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department">
+
+            <label for="mobile-no">Mobile No:</label>
+            <input type="tel" id="mobile-no" name="mobile-no">
+        </div>
+
+        <!-- Date and Time -->
+        <div class="date-time">
+            <h2>Date and Time</h2>
+            <label for="from-date">From Date:</label>
+            <input type="date" id="from-date" name="from-date">
+
+            <label for="to-date">To Date:</label>
+            <input type="date" id="to-date" name="to-date">
+
+            <label for="from-time">From Time:</label>
+            <input type="time" id="from-time" name="from-time">
+
+            <label for="to-time">To Time:</label>
+            <input type="time" id="to-time" name="to-time">
+        </div>
+
+        <!-- Participants -->
+        <div class="participants">
+            <h2>Participants</h2>
+            <label for="expected-participants">Expected Number of Participants:</label>
+            <input type="number" id="expected-participants" name="expected-participants">
+
+            <label for="internals">Internals:</label>
+            <input type="number" id="internals" name="internals">
+
+            <label for="externals">Externals:</label>
+            <input type="number" id="externals" name="externals">
+        </div>
+
+        <!-- Guest Details -->
+        <div class="guest-details">
+            <h2>Guest Details</h2>
+            <label for="no-of-guests">No of Guests:</label>
+            <input type="number" id="no-of-guests" name="no-of-guests">
+
+            <label for="guest-name">Name of the Guest:</label>
+            <input type="text" id="guest-name" name="guest-name">
+
+            <label for="guest-designation">Designation:</label>
+            <input type="text" id="guest-designation" name="guest-designation">
+
+            <label for="guest-org">Organisation/Industry:</label>
+            <input type="text" id="guest-org" name="guest-org">
+        </div>
+
+        <!-- Event Requirements -->
+        <div class="event-requirements">
+            <h2>Event Requirements</h2>
+            <div class="radio-group">
+                <label>Financial Required:</label>
+                <label><input type="radio" id="financial-required-yes" name="financial-required" value="yes"> Yes</label>
+                <label><input type="radio" id="financial-required-no" name="financial-required" value="no"> No</label>
+            </div>
+
+            <div class="radio-group">
+                <label>Reward Points:</label>
+                <label><input type="radio" id="reward-points-yes" name="reward-points" value="yes"> Yes</label>
+                <label><input type="radio" id="reward-points-no" name="reward-points" value="no"> No</label>
+            </div>
+
+            <div class="radio-group">
+                <label>On-Duty Required:</label>
+                <label><input type="radio" id="on-duty-required-yes" name="on-duty-required" value="yes"> Yes</label>
+                <label><input type="radio" id="on-duty-required-no" name="on-duty-required" value="no"> No</label>
+            </div>
+
+            <div class="radio-group">
+                <label>Vehicle Required:</label>
+                <label><input type="radio" id="vehicle-required-yes" name="vehicle-required" value="yes"> Yes</label>
+                <label><input type="radio" id="vehicle-required-no" name="vehicle-required" value="no"> No</label>
+            </div>
+
+            <div class="radio-group">
+                <label>Accommodation Required:</label>
+                <label><input type="radio" id="accommodation-required-yes" name="accommodation-required" value="yes"> Yes</label>
+                <label><input type="radio" id="accommodation-required-no" name="accommodation-required" value="no"> No</label>
+            </div>
+
+            <div class="radio-group">
+                <label>Venue Required:</label>
+                <label><input type="radio" id="venue-required-yes" name="venue-required" value="yes"> Yes</label>
+                <label><input type="radio" id="venue-required-no" name="venue-required" value="no"> No</label>
+            </div>
+
+            <div class="radio-group">
+                <label>Audio Required:</label>
+                <label><input type="radio" id="audio-required-yes" name="audio-required" value="yes"> Yes</label>
+                <label><input type="radio" id="audio-required-no" name="audio-required" value="no"> No</label>
+            </div>
+
+            <div class="radio-group">
+                <label>Photography Required:</label>
+                <label><input type="radio" id="photography-required-yes" name="photography-required" value="yes"> Yes</label>
+                <label><input type="radio" id="photography-required-no" name="photography-required" value="no"> No</label>
+            </div>
+
+            <div class="radio-group">
+                <label>Accessories Required:</label>
+                <label><input type="radio" id="accessories-required-yes" name="accessories-required" value="yes"> Yes</label>
+                <label><input type="radio" id="accessories-required-no" name="accessories-required" value="no"> No</label>
+            </div>
+
+            <label for="other-requirements">Other Requirements, if any:</label>
+            <textarea id="other-requirements" name="other-requirements"></textarea>
+        </div>
+
+        <button type="submit">Submit</button>
+    </div>
+
+    <script>
+        document.querySelectorAll('input[name="financial-required"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.getElementById('financial-details').style.display = this.value === 'yes' ? 'block' : 'none';
+            });
+        });
+
+        // Initially hide financial details section
+        document.getElementById('financial-details').style.display = 'none';
+    </script>
+</body>
+</html>

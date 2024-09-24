@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Event Management Portal | Dashboard</title>
+    <link rel="stylesheet" href="user.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+      <i class='bx bxs-calendar'></i>
+      <span class="logo_name">Event <br> Management</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="#" class="active">
+          <span class="links_name">Main</span>
+        </a>
+      </li>
+
+      <!-- Dropdown for Resources -->
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle">
+          <span class="links_name">Resources</span>
+        </a>
+        <ul class="dropdown-content">
+          <li><a href="index.html">User Profile</a></li>
+          <li><a href="#" id="venuesAvailable">Venues Available</a></li>
+          <li><a href="#" id="loadGuidelines">Guidelines for Events</a></li>
+
+          <li><a href="#" id="conductedEvents">Conducted Events</a></li>
+          <li><a href="#" id="loadForm">Event Requisition Form</a></li>
+        </ul>
+      </li>
+
+      <li class="log_out">
+        <a href="#" id="logoutBtn">
+          <i class='bx bx-log-out'></i>
+          <span class="links_name">Log out</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <section class="home-section">
+    <nav>
+      <div class="sidebar-button">
+        <i class='bx bx-menu sidebarBtn'></i>
+        <span class="dashboard" style="color: #ffffff;">User Dashboard</span>
+      </div>
+      <div class="search-box">
+        <input type="text" placeholder="Click to Search...">
+        <i class='bx bx-search'></i>
+      </div>
+      <div class="icons">
+        <i class='bx bx-bell' id="notificationIcon"></i>
+  
+        <i class='bx bx-moon' id="modeIcon"></i>
+    </div>
+      <div class="profile-details">
+        <span class="admin_name">MOUNEES KUMAR R</span>
+        <i class='bx bx-chevron-down'></i>
+      </div>
+    </nav>
+
+    <div class="home-content" id="home-content">
+      <div class="overview-boxes">
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">
+              <p><B>Name: </B>ABC</div> </p>
+            <p><B>FACULTY ID:</B>   12345</p>
+            <p><B>DEPARTMENT:</B>  COMPUTER SCIENCE</p>
+            <p><b>LEVEL:</b> 1</p>
+            <p><b>FACULTY PLACE:</b> SF</p>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Handling Club/Society</div>
+            <p><b>NAME(Club/Society):</b> LEO CLUB OF BIT</p>
+            <p><b>FACULTY ID:</b> 12345</p>
+            <p><b>DEPARTMENT: </b>  COMPUTER SCIENCE AND ENGINEERING</p>
+            <p><b>LEVEL:</b>  1</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Sidebar toggle functionality
+    let sidebar = document.querySelector(".sidebar");
+    let sidebarBtn = document.querySelector(".sidebarBtn");
+
+    sidebarBtn.onclick = function () {
+        sidebar.classList.toggle("active");
+        if (sidebar.classList.contains("active")) {
+            sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+        } else {
+            sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        }
+    };
+
+    // Dark mode toggle functionality
+    let modeIcon = document.getElementById('modeIcon');
+    modeIcon.onclick = function () {
+        document.body.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
+            modeIcon.classList.replace('bx-moon', 'bx-sun');
+        } else {
+            modeIcon.classList.replace('bx-sun', 'bx-moon');
+        }
+    };
+
+    document.getElementById('conductedEvents').onclick = function(event) {
+            event.preventDefault();
+            let homeContent = document.getElementById('home-content');
+            homeContent.innerHTML = `
+                <h2>Conducted Events</h2>
+                <table>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Date</th>
+                        <th>Venue</th>
+                        <th>Organized By</th>
+                        <th>Number of Attendees</th>
+                    </tr>
+                    <tr>
+                        <td>LEO FEST 2024</td>
+                        <td>2024-04-06</td>
+                        <td>SF SEMIANR HALL-1</td>
+                        <td>LEO CLUB</td>
+                        <td>250</td>
+                    </tr>
+                    <tr>
+                        <td>LUNARA'24</td>
+                        <td>2024-04-11</td>
+                        <td>SCHOOL OF COMPUTING</td>
+                        <td>Computer Science</td>
+                        <td>600</td>
+                    </tr>
+                    <tr>
+                        <td>GUEST LECTURE</td>
+                        <td>2024-05-01</td>
+                        <td>ECE SEMINAR HALL</td>
+                        <td>MSP CLUB</td>
+                        <td>200</td>
+                    </tr>
+                    <tr>
+                        <td>ALUMINI MEETUP</td>
+                        <td>2024-08-20</td>
+                        <td>CONFERENCE HALL</td>
+                        <td>ALUMINI ASSOCIATION</td>
+                        <td>200</td>
+                    </tr>
+                </table>
+            `;
+        };
+
+        document.getElementById('venuesAvailable').onclick = function(event) {
+            event.preventDefault();
+            let homeContent = document.getElementById('home-content');
+            homeContent.innerHTML = `
+                <h2>Venues Available</h2>
+                <table>
+                    <tr>
+                        <th>Venue Name</th>
+                        <th>Capacity</th>
+                        <th>Location</th>
+                        <th>Available Dates</th>
+                        <th>Contact Person</th>
+                    </tr>
+                    <tr>
+                        <td>BIT AUDITORIUM</td>
+                        <td>1800</td>
+                        <td>B/W AS AND IB</td>
+                        <td>2024-08-25 to 2024-09-05</td>
+                        <td>EVENT MANAGEMENT TEAM</td>
+                    </tr>
+                    <tr>
+                        <td>SF SEMINAR HALL-1</td>
+                        <td>400</td>
+                        <td>SF BASEMENT</td>
+                        <td>2024-09-10 to 2024-09-20</td>
+                        <td>EVENT MANAGEMENT TEAM</td>
+                    </tr>
+                    <tr>
+                        <td>LC-4TH CONFERENCE HALL</td>
+                        <td>20</td>
+                        <td>LIBRARY 4TH FLOOR</td>
+                        <td>2024-08-15 to 2024-08-30</td>
+                        <td>EVENT MANAGEMENT TEAM</td>
+                    </tr>
+                    <tr>
+                        <td>CSE LAB-1</td>
+                        <td>65</td>
+                        <td>SF 1st FLOOR</td>
+                        <td>2024-09-01 to 2024-09-15</td>
+                        <td>EVENT MANAGEMENT TEAM</td>
+                    </tr>
+                </table>
+            `;
+        };
+    document.getElementById('loadGuidelines').onclick = function(event) {
+    event.preventDefault(); 
+
+    let homeContent = document.getElementById('home-content');
+    homeContent.innerHTML = ''; 
+
+    // Add the guidelines content
+    homeContent.innerHTML = `
+      <div class="content-wrapper">
+          <h2>Guidelines for Events</h2>
+          <div class="guidelines-section">
+              <h3>1. Event Planning</h3>
+              <ul>
+                  <li>Submit the event requisition form at least two weeks prior to the event date.</li>
+                  <li>Ensure all logistics such as venue booking, audio-visual requirements, and catering are arranged in advance.</li>
+                  <li>Coordinate with the department heads and obtain necessary approvals.</li>
+              </ul>
+
+              <h3>2. Budget and Funding</h3>
+              <ul>
+                  <li>Prepare a detailed budget and ensure it is approved by the finance department.</li>
+                  <li>Seek sponsorships or external funding if necessary and ensure all funds are accounted for.</li>
+              </ul>
+
+              <h3>3. Communication and Promotion</h3>
+              <ul>
+                  <li>Develop a communication plan to promote the event through internal and external channels.</li>
+                  <li>Ensure all promotional materials are in line with the organization's branding guidelines.</li>
+                  <li>Send reminders to participants and stakeholders one week prior to the event.</li>
+              </ul>
+
+              <h3>4. On the Day of the Event</h3>
+              <ul>
+                  <li>Arrive at the venue early to oversee the setup and ensure all arrangements are in place.</li>
+                  <li>Ensure that the registration desk is staffed and that all participants are checked in.</li>
+                  <li>Have a contingency plan in case of any unforeseen issues or emergencies.</li>
+              </ul>
+
+              <h3>5. Post-Event Follow-Up</h3>
+              <ul>
+                  <li>Conduct a post-event evaluation to gather feedback from participants.</li>
+                  <li>Submit a detailed report of the event, including financial statements and participant feedback, to the management.</li>
+                  <li>Send thank you notes to all stakeholders, sponsors, and participants.</li>
+              </ul>
+          </div>
+      </div>
+    `;
+  };
+  
+    document.getElementById('loadForm').onclick = function(event) {
+        event.preventDefault(); // Prevent default link action
+        let homeContent = document.getElementById('home-content');
+        homeContent.innerHTML = ''; // Clear existing content
+
+        // Load event form
+        homeContent.innerHTML = `
+            <div class="form-container">
+                <h1>Event Form</h1>
+                <div class="organizer-details">
+                    <h2>Organizer Details</h2>
+                    <label for="organizer-name">Name:</label>
+                    <input type="text" id="organizer-name" name="organizer-name">
+
+                    <label for="department">Department:</label>
+                    <input type="text" id="department" name="department">
+
+                    <label for="mobile-no">Mobile No:</label>
+                    <input type="tel" id="mobile-no" name="mobile-no">
+                </div>
+
+                <div class="date-time">
+                    <h2>Date and Time</h2>
+                    <label for="from-date">From Date:</label>
+                    <input type="date" id="from-date" name="from-date">
+
+                    <label for="to-date">To Date:</label>
+                    <input type="date" id="to-date" name="to-date">
+
+                    <label for="from-time">From Time:</label>
+                    <input type="time" id="from-time" name="from-time">
+
+                    <label for="to-time">To Time:</label>
+                    <input type="time" id="to-time" name="to-time">
+                </div>
+
+                <div class="participants">
+                    <h2>Participants</h2>
+                    <label for="expected-participants">Expected Number of Participants:</label>
+                    <input type="number" id="expected-participants" name="expected-participants">
+
+                    <label for="internals">Internals:</label>
+                    <input type="number" id="internals" name="internals">
+
+                    <label for="externals">Externals:</label>
+                    <input type="number" id="externals" name="externals">
+                </div>
+
+                <div class="guest-details">
+                    <h2>Guest Details</h2>
+                    <label for="no-of-guests">No of Guests:</label>
+                    <input type="number" id="no-of-guests" name="no-of-guests">
+
+                    <label for="guest-name">Name of the Guest:</label>
+                    <input type="text" id="guest-name" name="guest-name">
+
+                    <label for="guest-designation">Designation:</label>
+                    <input type="text" id="guest-designation" name="guest-designation">
+
+                    <label for="guest-org">Organisation/Industry:</label>
+                    <input type="text" id="guest-org" name="guest-org">
+                </div>
+
+                <div class="event-requirements">
+                    <h2>Event Requirements</h2>
+                    <div class="radio-group">
+                        <label>Financial Required:</label>
+                        <label><input type="radio" id="financial-required-yes" name="financial-required" value="yes"> Yes</label>
+                        <label><input type="radio" id="financial-required-no" name="financial-required" value="no"> No</label>
+                    </div>
+
+                    <div class="radio-group">
+                        <label>Reward Points:</label>
+                        <label><input type="radio" id="reward-points-yes" name="reward-points" value="yes"> Yes</label>
+                        <label><input type="radio" id="reward-points-no" name="reward-points" value="no"> No</label>
+                    </div>
+
+                    <div class="radio-group">
+                        <label>On-Duty Required:</label>
+                        <label><input type="radio" id="on-duty-required-yes" name="on-duty-required" value="yes"> Yes</label>
+                        <label><input type="radio" id="on-duty-required-no" name="on-duty-required" value="no"> No</label>
+                    </div>
+
+                    <div class="radio-group">
+                        <label>Venue Required:</label>
+                        <label><input type="radio" id="venue-required-yes" name="venue-required" value="yes"> Yes</label>
+                        <label><input type="radio" id="venue-required-no" name="venue-required" value="no"> No</label>
+                    </div>
+
+                    <div class="radio-group">
+                        <label>Photography Required:</label>
+                        <label><input type="radio" id="photography-required-yes" name="photography-required" value="yes"> Yes</label>
+                        <label><input type="radio" id="photography-required-no" name="photography-required" value="no"> No</label>
+                    </div>
+
+                    <div class="radio-group">
+                        <label>Accessories Required:</label>
+                        <label><input type="radio" id="accessories-required-yes" name="accessories-required" value="yes"> Yes</label>
+                        <label><input type="radio" id="accessories-required-no" name="accessories-required" value="no"> No</label>
+                    </div>
+                    
+                    <div class="radio-group">
+                        <label>vehicle Required:</label>
+                        <label><input type="radio" id="vehicle-required-yes" name="vehicle-required" value="yes"> Yes</label>
+                        <label><input type="radio" id="vehicle-required-no" name="vehicle-required" value="no"> No</label>
+                    </div>
+                    
+                    <div class="radio-group">
+                        <label>Accommodation Required:</label>
+                        <label><input type="radio" id="acc-required-yes" name="acc-required" value="yes"> Yes</label>
+                        <label><input type="radio" id="acc-required-no" name="acc-required" value="no"> No</label>
+                    </div>
+
+
+                    <label for="other-requirements">Other Requirements, if any:</label>
+                    <textarea id="other-requirements" name="other-requirements"></textarea>
+                </div>
+
+                <button type="submit" id="next-button">Next</button>
+            </div>
+        `;
+
+        // Handle form submission and redirection
+        document.getElementById('next-button').onclick = function() {
+            if (document.getElementById('financial-required-yes').checked) {
+                window.location.href = 'financial_form.html';
+            } else if (document.getElementById('reward-points-yes').checked) {
+                window.location.href = 'reward_points_form.html';
+            } else if (document.getElementById('on-duty-required-yes').checked) {
+                window.location.href = 'on_duty_form.html';
+            } else if (document.getElementById('venue-required-yes').checked) {
+                window.location.href = 'venue.html';
+            } else if (document.getElementById('photography-required-yes').checked) {
+                window.location.href = 'photography.html';
+            } else if (document.getElementById('vehicle-required-yes').checked) {
+                window.location.href = 'vehicle.html';
+                
+            }
+             else if (document.getElementById('accessories-required-yes').checked) {
+              window.location.href = 'vehicle.html';
+            } 
+            else if (document.getElementById('acc-required-yes').checked) {
+                window.location.href = 'acc.html';
+                
+            }
+            else {
+                alert('No additional forms are required.');
+            }
+        };
+        
+    };
+    document.getElementById('logoutBtn').onclick = function(event) {
+   event.preventDefault();  // Prevents the default anchor behavior
+   window.location.href = 'login.html';  // Redirects to the login page
+};
+document.getElementById('logoutBtn').onclick = function(event) {
+    event.preventDefault();
+    window.location.href = 'login.html';
+};
+
+</script>
+  
+  <style>
+   .dropdown {
+    position: relative;
+    display: inline-block; /* Allows the dropdown to adjust based on its content */
+}
+
+
+.home-section .nav .icons i {
+    margin-left: 15px;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.home-section nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    background: #000000;
+    position: fixed;
+    width: calc(100% - 240px);
+    left: 245px;
+    z-index: 100;
+    padding: 0 20px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease;
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #0A2558;
+    padding: 10px;
+    list-style: none;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    width: 200px;
+    border-radius: 5px; /* Optional: rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add shadow */
+}
+.dropdown-content li a {
+    padding: 8px 12px;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+}
+
+.dropdown-content li a:hover {
+    background-color: #081D45;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+    nav .sidebar-button i {
+    font-size: 35px;
+    margin-right: 10px;
+    color: #ffffff;
+}
+ 
+    .dropdown-content li a {
+      padding: 8px 12px;
+      display: block;
+      color: #fff;
+      text-decoration: none;
+    }
+
+  
+    .dropdown-content li a:hover {
+      background-color: #081D45;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .form-container {
+    background-color: #fff;
+    padding: 20px;
+    max-width: 1250px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+}
+        h1, h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            margin-top: 30px;
+            font-size: 1.2em;
+            border-bottom: 2px solid #0A2558;
+            padding-bottom: 5px;
+            margin-left: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 15px 0 5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        input[type="tel"],
+        input[type="number"],
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 0 auto;
+            display: block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .radio-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+            margin-right: 10px;
+        }
+
+        .radio-group input[type="radio"] {
+            margin-right: 5px;
+        }
+    
+  
+       
+    button[type="submit"] {
+    background-color: #738fc2;
+    color: #fff;
+    padding: 10px 50px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-top: 10px;
+    width: 20%; 
+    align-self: flex-end;
+}
+        button[type="submit"]:hover {
+            background-color: #11bb66;
+        }
+        .content-wrapper {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.guidelines-section h3 {
+    font-size: 1.25em;
+    margin-top: 20px;
+    color: #333;
+}
+
+.guidelines-section ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.guidelines-section ul li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    color: #555;
+}
+
+table {
+            width: 95%;
+            border-collapse: collapse;
+            margin-top: 40px;
+            margin-left: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .content-wrapper {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+  </style>
+  </style>
+</body>
+</html>

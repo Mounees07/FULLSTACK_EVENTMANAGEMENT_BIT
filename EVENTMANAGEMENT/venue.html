@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venue Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .venue-form-container {
+            width: 80%;
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .venue-types {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .venue-types label {
+            margin-bottom: 0.5rem;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="venue-form-container">
+        <h1 class="form-title">Venue Form</h1>
+        <form action="/submit-venue-form" method="POST" class="venue-form">
+            <div class="form-group">
+                <label for="task-id">Task ID *</label>
+                <input type="text" id="task-id" name="task-id" required>
+            </div>
+            <div class="form-group">
+                <label for="no-of-venues">No. of Venues Required *</label>
+                <input type="number" id="no-of-venues" name="no-of-venues" required>
+            </div>
+            <div class="form-group">
+                <label for="audio-requirements">Audio Requirements</label>
+                <textarea id="audio-requirements" name="audio-requirements"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Venue Types</label>
+                <div class="venue-types">
+                    <label><input type="checkbox" name="venue-types" value="seminar-hall"> Seminar Hall</label>
+                    <label><input type="checkbox" name="venue-types" value="auditorium"> Auditorium</label>
+                    <label><input type="checkbox" name="venue-types" value="lab"> Lab</label>
+                    <label><input type="checkbox" name="venue-types" value="conference-hall"> Conference Hall</label>
+                    <label><input type="checkbox" name="venue-types" value="discussion-room"> Discussion Room</label>
+                    <label><input type="checkbox" name="venue-types" value="others"> Others</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="hall-requirements">Hall Requirements</label>
+                <textarea id="hall-requirements" name="hall-requirements"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="expected-internet">Expected Internet Users (if applicable)</label>
+                <input type="number" id="expected-internet" name="expected-internet">
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

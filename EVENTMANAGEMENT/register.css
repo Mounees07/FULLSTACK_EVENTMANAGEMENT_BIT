@@ -1,0 +1,210 @@
+.group-child1,
+.rectangle-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-9xs);
+  width: 674px;
+  height: 768px;
+}
+.group-child1 {
+  height: 892px;
+}
+.already-have-an {
+  position: absolute;
+  top: 850px;
+  left: 170px;
+  font-weight: 800;
+}
+.register {
+  position: absolute;
+  top: 217px;
+  left: 265px;
+  font-size: var(--font-size-21xl);
+  color: var(--color-mediumslateblue-200);
+}
+.group-child2,
+.group-child3 {
+  position: absolute;
+  top: 586px;
+  left: 70px;
+  border-radius: var(--br-mini);
+  background-color: var(--color-gainsboro-200);
+  width: 552px;
+  height: 55px;
+}
+.group-child3 {
+  top: 694px;
+}
+.mobile-no {
+  position: absolute;
+  top: 601px;
+  left: 122px;
+  font-weight: 800;
+}
+.dob,
+.image-6-icon {
+  position: absolute;
+  top: 710px;
+}
+.image-6-icon {
+  left: 86px;
+  width: 25px;
+  height: 22px;
+  object-fit: cover;
+}
+.dob {
+  left: 122px;
+  font-weight: 800;
+}
+.group-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 287px;
+  height: 53px;
+}
+.sign-up {
+  position: absolute;
+  top: 15px;
+  left: 96px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.group-child4,
+.group-container {
+  position: absolute;
+  top: 775px;
+  left: 203px;
+  width: 287px;
+  height: 53px;
+}
+.group-child4 {
+  top: 0;
+  left: 0;
+  border-radius: var(--br-mini);
+  background-color: var(--color-gainsboro-200);
+  width: 552px;
+  height: 55px;
+}
+.email-id {
+  position: absolute;
+  top: 16px;
+  left: 52px;
+  font-weight: 800;
+}
+.group-wrapper,
+.image-2-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 552px;
+  height: 55px;
+}
+.image-2-icon {
+  top: 14px;
+  left: 13px;
+  width: 27px;
+  height: 27px;
+  object-fit: cover;
+}
+.group-div,
+.vector-group {
+  position: absolute;
+  top: 480px;
+  left: 70px;
+  width: 552px;
+  height: 55px;
+}
+.vector-group {
+  top: 0;
+  left: 0;
+  width: 674px;
+  height: 892px;
+}
+.group-child5,
+.group-child7 {
+  position: absolute;
+  top: 0;
+  left: 1px;
+  border-radius: var(--br-mini);
+  background-color: var(--color-gainsboro-200);
+  width: 552px;
+  height: 55px;
+}
+.group-child7 {
+  top: 97px;
+  left: 0;
+}
+.faculty-id,
+.name {
+  position: absolute;
+  top: 15px;
+  left: 53px;
+  font-weight: 800;
+}
+.faculty-id {
+  top: 113px;
+}
+.image-1-icon,
+.rectangle-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 553px;
+  height: 152px;
+}
+.image-1-icon {
+  top: 13px;
+  left: 14px;
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+}
+.group-parent1 {
+  position: absolute;
+  top: 287px;
+  left: 70px;
+  width: 553px;
+  height: 152px;
+}
+.ellipse-icon,
+.image-4-icon,
+.image-5-icon {
+  position: absolute;
+  top: 400px;
+  left: 83px;
+  width: 29px;
+  height: 29px;
+  object-fit: cover;
+}
+.ellipse-icon,
+.image-5-icon {
+  top: 597px;
+  width: 32px;
+  height: 32px;
+}
+.ellipse-icon {
+  top: 28px;
+  left: 22px;
+  width: 120px;
+  height: 107px;
+}
+.group-parent {
+  position: absolute;
+  top: 59px;
+  left: 616px;
+  width: 674px;
+  height: 892px;
+}
+.registration-page {
+  width: 100%;
+  position: relative;
+  background-color: var(--color-white);
+  height: 1117px;
+  overflow: hidden;
+  text-align: left;
+  font-size: var(--font-size-xl);
+  color: var(--color-black);
+  font-family: var(--font-inter);
+}
