@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessories Form</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 125vh;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      width: 200%;
+    }
+
+    .form-container h2 {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      font-size: 1em;
+      color: #666;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="number"],
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+      color: #333;
+      outline: none;
+    }
+
+    .form-group textarea {
+      height: 100px;
+    }
+
+    button[type="submit"] {
+      background-color: #738fc2;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1em;
+      width: 100%;
+      text-align: center;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #5f77a6;
+    }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Accessories Form</h2>
+    <form action="/submit_accessories_form/" method="POST" id="accessories-form">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="task-id">Task ID *</label>
+        <input type="text" id="task-id" name="task_id" placeholder="Enter Task ID" required>
+      </div>
+      <div class="form-group">
+        <label for="venue-name">Name of the Venue *</label>
+        <input type="text" id="venue-name" name="venue_name" placeholder="Enter Venue Name" required>
+      </div>
+      <div class="form-group">
+        <label for="large-memento">Large Memento</label>
+        <input type="number" id="large-memento" name="large_memento" placeholder="Enter quantity">
+      </div>
+      <div class="form-group">
+        <label for="small-memento">Small Memento</label>
+        <input type="number" id="small-memento" name="small_memento" placeholder="Enter quantity">
+      </div>
+      <div class="form-group">
+        <label for="shawl">Shawl</label>
+        <input type="number" id="shawl" name="shawl" placeholder="Enter quantity">
+      </div>
+      <div class="form-group">
+        <label for="water-bottles">Water Bottles</label>
+        <input type="number" id="water-bottles" name="water_bottles" placeholder="Enter quantity">
+      </div>
+      <div class="form-group">
+        <label for="pen-pencil">Pen/Pencil</label>
+        <input type="number" id="pen-pencil" name="pen_pencil" placeholder="Enter quantity">
+      </div>
+      <div class="form-group">
+        <label for="scribbling-pad">Scribbling Pad</label>
+        <input type="number" id="scribbling-pad" name="scribbling_pad" placeholder="Enter quantity">
+      </div>
+      <div class="form-group">
+        <label for="other-requirements">Other Requirements</label>
+        <textarea id="other-requirements" name="other_requirements" placeholder="Enter any other requirements"></textarea>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+    <div class="form-footer">
+      <p>Note: Fields marked with * are mandatory.</p>
+    </div>
+  </div>
+  <script>
+    document.getElementById('accessories-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        const formData = {
+            task_id: document.getElementById('task-id').value,
+            venue_name: document.getElementById('venue-name').value,
+            large_memento: parseInt(document.getElementById('large-memento').value, 10) || 0,
+            small_memento: parseInt(document.getElementById('small-memento').value, 10) || 0,
+            shawl: parseInt(document.getElementById('shawl').value, 10) || 0,
+            water_bottles: parseInt(document.getElementById('water-bottles').value, 10) || 0,
+            pen_pencil: parseInt(document.getElementById('pen-pencil').value, 10) || 0,
+            scribbling_pad: parseInt(document.getElementById('scribbling-pad').value, 10) || 0,
+            other_requirements: document.getElementById('other-requirements').value,
+        };
+
+        try {
+            const response = await fetch('/submit_accessories_form/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Accessories form submitted successfully!');
+                document.getElementById('accessories-form').reset();
+            } else {
+                alert(`Error: ${result.message}`);
+            }
+        } catch (error) {
+            console.error('Submission error:', error);
+            alert('An error occurred while submitting the accessories form.');
+        }
+    });
+</script>
+
+  
+</body>
+</html>

@@ -1,0 +1,237 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Event Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            margin: 15px 0;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f1f1f1;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table-container {
+            width: 95%;
+            margin: 20px auto;
+            overflow-x: auto;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .button-container form {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            background-color: #28a745;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        button.reject {
+            background-color: #dc3545;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .status.pending {
+            color: orange;
+        }
+
+        .status.approved {
+            color: green;
+        }
+
+        .status.rejected {
+            color: red;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Admin Event Validation</h1>
+    </header>
+
+    <div class="table-container">
+        <h2>Events</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Organizer-Name</th>
+                    <th>Event Name</th>
+                    <th>Task-ID</th>
+                    <th>Event Start and End Date</th>
+                    
+                    <th>Event-Start <br> and End Time</th>
+                   
+                    <th>Participants-Count</th>
+                    <th>No-of-Guests</th>
+                    <th>Financial Requirements</th>
+                    <th>Reward Points Requirements</th>
+                    <th>On-Duty Requirements</th>
+                    <th>Venue Requirements</th>
+                    <th>No-of-Venues Required</th>
+                    <th>Audio Required</th>
+                    <th>Venue Type</th>
+                    <th>Hall Requirements</th>
+                    <th>Expected Internet</th>
+                    <th>Photography Requirements</th>
+                    <th>Venue</th>
+                    <th>Requirements</th>
+                    <th>Services</th>
+                    <th>Preferred Time For Photography</th>
+                    <th>Accessories Requirements</th>
+                    <th>Venue Name </th>
+                    <th>Large Memento </th>
+                    <th>Small Memento Requirement</th>
+                    <th>Shawl Requirement</th>
+                    <th>Water Bottle Requirement</th>
+                    <th>Pen,Pencil</th>
+                    <th>scribbling_pad</th>
+                    <th>other_requirements</th>
+
+                    <th>Vehicle Requirements</th>
+                    <th>No of Vehicles</th>
+                    <th>Purpose of Visit</th>
+                    <th>Vehicle Type</th>
+                    <th>Special Requirement</th>
+
+                    <th>Accommodation Requirements</th>
+                    <th>Other Requirements</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in events %}
+                <tr>
+                    <td>{{ event.id }}</td>
+                    <td>{{ event.organizer_name }}</td>
+                    <td>{{ event.event_name }}</td>
+                    <td>{{ event.task_id }}</td>
+                    <td>{{ event.from_date }} to {{ event.to_date }}</td>
+                   
+                    <td>{{ event.from_time }} to {{ event.to_time }}</td>
+                    
+                    <td>{{ event.expected_participants }}</td>
+                    <td>{{ event.no_of_guests }}</td>
+                    <td>{{ event.financial_required }}</td>
+                    <td>{{ event.reward_points }}</td>
+                    <td>{{ event.on_duty_required }}</td>
+                    <td>{{ event.venue_required }}</td>
+
+                    <!-- VenueRequest Details -->
+                    {% with venue_requests|get_item:event.task_id as venue %}
+                    <td>{{ venue.no_of_venues|default:"-" }}</td>
+                    <td>{{ venue.audio_requirements|default:"-" }}</td>
+                    <td>{{ venue.venue_types|default:"-" }}</td>
+                    <td>{{ venue.hall_requirements|default:"-" }}</td>
+                    <td>{{ venue.expected_internet|default:"-" }}</td>
+                    {% endwith %}
+
+                     <!-- PhotographyRequest Details -->
+                    <td>{{ event.photography_required }}</td>
+                    {% with photography_requests|get_item:event.task_id as photo %}
+                    <td>{{ photo.venue|default:"-" }}</td>
+                    <td>{{ photo.requirements|default:"-" }}</td>
+                    <td>{{ photo.services|default:"-" }}</td>
+                    <td>{{ photo.preferred_time|default:"-" }}</td>
+                    {% endwith %}
+
+                    <!-- AccessoriesRequest Details -->
+                    <td>{{ event.accessories_required }}</td>
+                    {% with accessories_request|get_item:event.task_id as accessories %}
+                    <td>{ accessories.venue_name|default:"-"  }</td>
+                    <td>{ accessories.large_memento|default:"-"  }</td>
+                    <td>{ accessories.small_memento|default:"-"  }</td>
+                    <td>{ accessories.shawl|default:"-"  }</td>
+                    <td>{ accessories.water_bottles|default:"-"  }</td>
+                    <td>{ accessories.pen_pencil|default:"-"  }</td>
+                    <td>{ accessories.scribbling_pad|default:"-"  }</td>
+                    <td>{ accessories.other_requirements|default:"-"  }</td>
+                    
+                    <td>{{ event.vehicle_required }}</td>
+                    {% with vehicle_request|get_item:event.task_id as vehicle %}
+                    <td>{{ event.acc_required }}</td>
+                    <td>{{ event.other_requirements }}</td>
+                    <td class="status {{ event.approval_status|lower }}">{{ event.approval_status|title }}</td>
+                    <td class="button-container">
+                        {% if event.approval_status == 'pending' %}
+                        <form action="{% url 'approve_event' event.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Approve</button>
+                        </form>
+                        <form action="{% url 'reject_event' event.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="reject">Reject</button>
+                        </form>
+                        {% else %}
+                        {{ event.approval_status|title }}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
+    

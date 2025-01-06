@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+   
+</head>
+<style>
+    /* General Styles for Login Pages */
+    body {
+        font-family: 'Roboto', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: linear-gradient(to bottom right, #f0f2f5, #e1e5ea);
+    }
+
+    .login-container {
+        background: #ffffff;
+        padding: 60px 40px;
+        border-radius: 20px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .institution-logo {
+        width: 150px;
+        height: auto;
+        margin-bottom: 30px;
+    }
+
+    h1 {
+        margin-bottom: 15px;
+        color: #333;
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    .greeting {
+        margin-bottom: 35px;
+        color: #666;
+        font-size: 18px;
+        line-height: 1.4;
+    }
+
+    .login-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        max-width: 100%;
+        padding: 16px 18px;
+        border: 1px solid #999;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+        border-color: #63b8f0;
+        outline: none;
+        box-shadow: 0 0 8px rgba(99, 184, 240, 0.3);
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background: #4285f4;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    button:hover {
+        background: #3366cc;
+    }
+
+    .forgot-password {
+        margin-top: 20px;
+        text-align: left;
+        width: 100%;
+    }
+
+    .forgot-password a {
+        color: #666;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .forgot-password a:hover {
+        text-decoration: underline;
+    }
+</style>
+<body>
+    <div class="login-container">
+        <img src="{% static 'images/bit.png' %}" alt="Bit Logo" class="logo">
+
+        <h1>Welcome, Admin!</h1>
+        <p class="greeting">Please log in to continue.</p>
+
+        <form class="login-form" id="login-form">
+            <input type="email" id="email" name="email" placeholder="ADMIN-ID" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <button type="button" onclick="redirectToAdminPage()">Login</button>
+            <div class="forgot-password">
+                <a href="/forgot-password">Forgot your password?</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function redirectToAdminPage() {
+            // Get user input
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+    
+            // Predefined credentials for validation (for demo purposes)
+            const validAdminID = "Admin123";
+            const validPassword = "password123";
+    
+            // Validate input
+            if (!email || !password) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+    
+            if (email === validAdminID && password === validPassword) {
+                // If credentials are correct, redirect to the admin page
+                window.location.href = "admin.html";
+            } else {
+                // If credentials are incorrect, show an error message
+                alert("Invalid ADMIN-ID or password. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>

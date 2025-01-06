@@ -1,0 +1,234 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Event Management Portal | Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+          <i class='bx bxs-calendar'></i>
+          <span class="logo_name">Event Management</span>
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a href="#">
+              <span class="links_name">Main</span>
+            </a>
+          </li>
+    
+          <!-- Dropdown for Resources -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+                <span class="links_name">Resources</span>
+            </a>
+            <ul class="dropdown-content">
+                <li><a href="{% url 'admin_view' %}">Admin Profile</a></li>
+
+                <li><a href="{% url 'admin_event_list' %}" id="venuesAvailable">Uploaded Events</a></li>
+                <li><a href="#" id="loadGuidelines">Venues Available</a></li>
+                <li><a href="#" id="conductedEvents">Approved Events</a></li>
+                <li class="sub-dropdown">
+                    <a href="#" id="loadForm">Reports</a>
+                    <ul class="sub-dropdown-content">
+                        <li><a href="venue.html" id="venueForm">Venue Form</a></li>
+                        <li><a href="photography.html" id="photographyForm">Photography Form</a></li>
+                        <li><a href="accessories.html" id="accessoriesForm">Accessories Form</a></li>
+                        <li><a href="vehicle.html" id="vehicleForm">Vehicle Form</a></li>
+                        <li><a href="acc.html" id="accommodationFormButton">Accommodation Form</a></li>
+                        
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        
+    
+          
+        </ul>
+      </div>
+
+  <section class="home-section">
+    <nav>
+ 
+      <div class="search-box">
+        <input type="text" placeholder="Click to Search...">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M10 2a8 8 0 106.32 13.9l4.91 4.91a1 1 0 101.41-1.41l-4.91-4.91A8 8 0 0010 2zm0 2a6 6 0 114.24 10.24A6 6 0 0110 4z"/>
+          </svg>
+      </div>
+      <div class="icons">
+        <!-- Dark Mode Toggle -->
+        <div class="icon toggle-btn" onclick="toggleDarkMode()">
+          <img src="https://img.icons8.com/?size=100&id=45474&format=png&color=000000" alt="">
+        </div>
+    
+        <!-- Notifications -->
+        <div class="dashboard-container">
+            <!-- Notification Button -->
+            <div class="icon" onclick="toggleNotificationSidebar()">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 11-10 10A10 10 0 0112 2zm0 2a8 8 0 000 16 8 8 0 000-16zm-1 12h2v2h-2zm1-10a1 1 0 011 1v6a1 1 0 01-2 0V7a1 1 0 011-1z" />
+              </svg>
+              <span class="notification-dot"></span>
+            </div>
+          
+            <!-- Notification Sidebar -->
+            <div class="notification-sidebar" id="notificationSidebar">
+              <h3>Notifications</h3>
+              <ul>
+                <li>New event uploaded</li>
+                <li>Profile updated</li>
+                <li>Event approved</li>
+                <li>Upcoming event reminder</li>
+                <li>Venue booking confirmed</li>
+              </ul>
+              <button onclick="toggleNotificationSidebar()">Close</button>
+            </div>
+          </div>
+          
+                  
+          
+    
+
+                  <div class="profile-dropdown">
+                    <button id="profile-btn">MOUNEES KUMAR R ▼</button>
+                    <div id="dropdown-menu" class="dropdown-hidden">
+                      <button id="logout-btn">Log Out</button>
+                    </div>
+                  </div>
+           
+    </nav>
+
+    <div class="home-content" id="home-content">
+      <div class="overview-boxes">
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">
+              <p><B>Name: </B>ABC</div> </p>
+            <p><B>FACULTY ID:</B>   12345</p>
+            <p><B>DEPARTMENT:</B>  COMPUTER SCIENCE</p>
+            <p><b>LEVEL:</b> 1</p>
+            <p><b>FACULTY PLACE:</b> SF</p>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Handling Club/Society</div>
+            <p><b>NAME(Club/Society):</b> LEO CLUB OF BIT</p>
+            <p><b>FACULTY ID:</b> 12345</p>
+            <p><b>DEPARTMENT: </b>  COMPUTER SCIENCE AND ENGINEERING</p>
+            <p><b>LEVEL:</b>  1</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script >
+
+
+
+    function scrollUp() {
+    const menu = document.querySelector('.sidebar-menu');
+    menu.scrollBy({
+      top: -50, // Adjust scrolling amount (negative for upward)
+      behavior: 'smooth' // Smooth scrolling effect
+    });
+  }
+
+  // Scroll down function
+  function scrollDown() {
+    const menu = document.querySelector('.sidebar-menu');
+    menu.scrollBy({
+      top: 50, // Adjust scrolling amount (positive for downward)
+      behavior: 'smooth' // Smooth scrolling effect
+    });
+  }
+document.addEventListener("DOMContentLoaded", () => {
+    const deleteButtons = document.querySelectorAll(".delete-btn");
+
+    deleteButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const row = btn.closest("tr");
+            row.remove();
+        });
+    });
+});
+
+
+document.getElementById('venueAvailable').onclick = function(event) {
+    event.preventDefault();
+    let homeContent = document.getElementById('home-content');
+    homeContent.innerHTML = `
+        <h2>Venues Available</h2>
+        <table>
+            <tr>
+                <th>Venue Name</th>
+                <th>Capacity</th>
+                <th>Location</th>
+                <th>Available Dates</th>
+                <th>Contact Person</th>
+            </tr>
+            <tr>
+                <td>BIT AUDITORIUM</td>
+                <td>1800</td>
+                <td>B/W AS AND IB</td>
+                <td>2024-08-25 to 2024-09-05</td>
+                <td>EVENT MANAGEMENT TEAM</td>
+            </tr>
+            <tr>
+                <td>SF SEMINAR HALL-1</td>
+                <td>400</td>
+                <td>SF BASEMENT</td>
+                <td>2024-09-10 to 2024-09-20</td>
+                <td>EVENT MANAGEMENT TEAM</td>
+            </tr>
+            <tr>
+                <td>LC-4TH CONFERENCE HALL</td>
+                <td>20</td>
+                <td>LIBRARY 4TH FLOOR</td>
+                <td>2024-08-15 to 2024-08-30</td>
+                <td>EVENT MANAGEMENT TEAM</td>
+            </tr>
+            <tr>
+                <td>CSE LAB-1</td>
+                <td>65</td>
+                <td>SF 1st FLOOR</td>
+                <td>2024-09-01 to 2024-09-15</td>
+                <td>EVENT MANAGEMENT TEAM</td>
+            </tr>
+        </table>
+    `;
+};
+
+document.getElementById('logoutBtn').onclick = function(event) {
+event.preventDefault();  // Prevents the default anchor behavior
+window.location.href = 'login.html';  // Redirects to the login page
+};
+document.getElementById('logoutBtn').onclick = function(event) {
+event.preventDefault();
+window.location.href = 'login.html';
+};
+    // Sidebar toggle functionality
+    let sidebar = document.querySelector(".sidebar");
+    let sidebarBtn = document.querySelector(".sidebarBtn");
+
+    sidebarBtn.onclick = function () {
+        sidebar.classList.toggle("active");
+        if (sidebar.classList.contains("active")) {
+            sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+        } else {
+            sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        }
+    };
+
+
+  </script>
+  <script src="{% static 'js/script1.js' %}"></script>
+</body>
+</html>

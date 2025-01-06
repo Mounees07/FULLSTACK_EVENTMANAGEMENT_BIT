@@ -1,0 +1,784 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Event Management Portal | Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+          <i class='bx bxs-calendar'></i>
+          <span class="logo_name">Event Management</span>
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a href="#">
+              <span class="links_name">Main</span>
+            </a>
+          </li>
+    
+          <!-- Dropdown for Resources -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+                <span class="links_name">Resources</span>
+            </a>
+            <ul class="dropdown-content">
+                <li><a href="{% url 'user_profile' %}">User Profile</a></li>
+
+                <li><a href="#" id="venuesAvailable">Venues Available</a></li>
+                <li><a href="#" id="loadGuidelines">Guidelines for Events</a></li>
+                <li><a href="#" id="conductedEvents">Conducted Events</a></li>
+                <li class="sub-dropdown">
+                    <a href="" id="loadForm">Event Requisition Form</a>
+                    <ul class="sub-dropdown-content">
+                        <li><a href="{% url 'venue' %}" id="loadVenueForm">Venue Form</a></li>
+                        <li><a href="{% url 'photography' %}" id="photography">Photography Form</a></li>
+                        <li><a href="{% url 'accessories' %}" id="accessoriesForm">Accessories Form</a></li>
+                        <li><a href="{% url 'vehicle' %}" id="vehicleForm">Vehicle Form</a></li>
+                        <li><a href="{% url 'accommodation' %}" id="accommodationFormButton">Accommodation Form</a></li>
+                        
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        
+    
+          
+        </ul>
+      </div>
+
+  <section class="home-section">
+    <nav>
+ 
+      <div class="search-box">
+        <input type="text" placeholder="Click to Search...">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M10 2a8 8 0 106.32 13.9l4.91 4.91a1 1 0 101.41-1.41l-4.91-4.91A8 8 0 0010 2zm0 2a6 6 0 114.24 10.24A6 6 0 0110 4z"/>
+          </svg>
+      </div>
+      <div class="icons">
+        <!-- Dark Mode Toggle -->
+        <div class="icon toggle-btn" onclick="toggleDarkMode()">
+          <img src="https://img.icons8.com/?size=100&id=45474&format=png&color=000000" alt="">
+        </div>
+    
+        <!-- Notifications -->
+        <div class="dashboard-container">
+            <!-- Notification Button -->
+            <div class="icon" onclick="toggleNotificationSidebar()">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 11-10 10A10 10 0 0112 2zm0 2a8 8 0 000 16 8 8 0 000-16zm-1 12h2v2h-2zm1-10a1 1 0 011 1v6a1 1 0 01-2 0V7a1 1 0 011-1z" />
+              </svg>
+              <span class="notification-dot"></span>
+            </div>
+          
+            <!-- Notification Sidebar -->
+            <div class="notification-sidebar" id="notificationSidebar">
+              <h3>Notifications</h3>
+              <ul>
+                <li>New event uploaded</li>
+                <li>Profile updated</li>
+                <li>Event approved</li>
+                <li>Upcoming event reminder</li>
+                <li>Venue booking confirmed</li>
+              </ul>
+              <button onclick="toggleNotificationSidebar()">Close</button>
+            </div>
+          </div>
+          
+                  
+          
+    
+
+                  <div class="profile-dropdown">
+                    <button id="profile-btn">MOUNEES KUMAR R ▼</button>
+                    <div id="dropdown-menu" class="dropdown-hidden">
+                      <button id="logout-btn">Log Out</button>
+                    </div>
+                  </div>
+           
+    </nav>
+
+    <div class="home-content" id="home-content">
+      <div class="overview-boxes">
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">
+              <p><B>Name: </B>ABC</div> </p>
+            <p><B>FACULTY ID:</B>   12345</p>
+            <p><B>DEPARTMENT:</B>  COMPUTER SCIENCE</p>
+            <p><b>LEVEL:</b> 1</p>
+            <p><b>FACULTY PLACE:</b> SF</p>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Handling Club/Society</div>
+            <p><b>NAME(Club/Society):</b> LEO CLUB OF BIT</p>
+            <p><b>FACULTY ID:</b> 12345</p>
+            <p><b>DEPARTMENT: </b>  COMPUTER SCIENCE AND ENGINEERING</p>
+            <p><b>LEVEL:</b>  1</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script >
+    function scrollUp() {
+    const menu = document.querySelector('.sidebar-menu');
+    menu.scrollBy({
+      top: -50, // Adjust scrolling amount (negative for upward)
+      behavior: 'smooth' // Smooth scrolling effect
+    });
+  }
+
+  // Scroll down function
+  function scrollDown() {
+    const menu = document.querySelector('.sidebar-menu');
+    menu.scrollBy({
+      top: 50, // Adjust scrolling amount (positive for downward)
+      behavior: 'smooth' // Smooth scrolling effect
+    });
+  }
+document.addEventListener("DOMContentLoaded", () => {
+    const deleteButtons = document.querySelectorAll(".delete-btn");
+
+    deleteButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const row = btn.closest("tr");
+            row.remove();
+        });
+    });
+});
+
+
+document.getElementById('conductedEvents').onclick = function(event) {
+    event.preventDefault();
+    let homeContent = document.getElementById('home-content');
+    homeContent.innerHTML = `
+        <h2>Conducted Events</h2>
+        <table>
+            <tr>
+                <th>Event Name</th>
+                <th>Date</th>
+                <th>Venue</th>
+                <th>Organized By</th>
+                <th>Number of Attendees</th>
+            </tr>
+            <tr>
+                <td>LEO FEST 2024</td>
+                <td>2024-04-06</td>
+                <td>SF SEMIANR HALL-1</td>
+                <td>LEO CLUB</td>
+                <td>250</td>
+            </tr>
+            <tr>
+                <td>LUNARA'24</td>
+                <td>2024-04-11</td>
+                <td>SCHOOL OF COMPUTING</td>
+                <td>Computer Science</td>
+                <td>600</td>
+            </tr>
+            <tr>
+                <td>GUEST LECTURE</td>
+                <td>2024-05-01</td>
+                <td>ECE SEMINAR HALL</td>
+                <td>MSP CLUB</td>
+                <td>200</td>
+            </tr>
+            <tr>
+                <td>ALUMINI MEETUP</td>
+                <td>2024-08-20</td>
+                <td>CONFERENCE HALL</td>
+                <td>ALUMINI ASSOCIATION</td>
+                <td>200</td>
+            </tr>
+        </table>
+    `;
+};
+
+document.getElementById('venuesAvailable').onclick = function(event) {
+    event.preventDefault();
+    let homeContent = document.getElementById('home-content');
+    homeContent.innerHTML = `
+        <h2>Venues Available</h2>
+        <table>
+            <tr>
+                <th>Venue Name</th>
+                <th>Capacity</th>
+                <th>Location</th>
+                <th>Available Dates</th>
+                <th>Contact Person</th>
+            </tr>
+            <tr>
+                <td>BIT AUDITORIUM</td>
+                <td>1800</td>
+                <td>B/W AS AND IB</td>
+                <td>2024-08-25 to 2024-09-05</td>
+                <td>EVENT MANAGEMENT TEAM</td>
+            </tr>
+            <tr>
+                <td>SF SEMINAR HALL-1</td>
+                <td>400</td>
+                <td>SF BASEMENT</td>
+                <td>2024-09-10 to 2024-09-20</td>
+                <td>EVENT MANAGEMENT TEAM</td>
+            </tr>
+            <tr>
+                <td>LC-4TH CONFERENCE HALL</td>
+                <td>20</td>
+                <td>LIBRARY 4TH FLOOR</td>
+                <td>2024-08-15 to 2024-08-30</td>
+                <td>EVENT MANAGEMENT TEAM</td>
+            </tr>
+            <tr>
+                <td>CSE LAB-1</td>
+                <td>65</td>
+                <td>SF 1st FLOOR</td>
+                <td>2024-09-01 to 2024-09-15</td>
+                <td>EVENT MANAGEMENT TEAM</td>
+            </tr>
+        </table>
+    `;
+};
+document.getElementById('loadGuidelines').onclick = function(event) {
+event.preventDefault(); 
+
+let homeContent = document.getElementById('home-content');
+homeContent.innerHTML = ''; 
+
+// Add the guidelines content
+homeContent.innerHTML = `
+<div class="content-wrapper">
+  <h2>Guidelines for Events</h2>
+  <div class="guidelines-section">
+      <h3>1. Event Planning</h3>
+      <ul>
+          <li>Submit the event requisition form at least two weeks prior to the event date.</li>
+          <li>Ensure all logistics such as venue booking, audio-visual requirements, and catering are arranged in advance.</li>
+          <li>Coordinate with the department heads and obtain necessary approvals.</li>
+      </ul>
+
+      <h3>2. Budget and Funding</h3>
+      <ul>
+          <li>Prepare a detailed budget and ensure it is approved by the finance department.</li>
+          <li>Seek sponsorships or external funding if necessary and ensure all funds are accounted for.</li>
+      </ul>
+
+      <h3>3. Communication and Promotion</h3>
+      <ul>
+          <li>Develop a communication plan to promote the event through internal and external channels.</li>
+          <li>Ensure all promotional materials are in line with the organization's branding guidelines.</li>
+          <li>Send reminders to participants and stakeholders one week prior to the event.</li>
+      </ul>
+
+      <h3>4. On the Day of the Event</h3>
+      <ul>
+          <li>Arrive at the venue early to oversee the setup and ensure all arrangements are in place.</li>
+          <li>Ensure that the registration desk is staffed and that all participants are checked in.</li>
+          <li>Have a contingency plan in case of any unforeseen issues or emergencies.</li>
+      </ul>
+
+      <h3>5. Post-Event Follow-Up</h3>
+      <ul>
+          <li>Conduct a post-event evaluation to gather feedback from participants.</li>
+          <li>Submit a detailed report of the event, including financial statements and participant feedback, to the management.</li>
+          <li>Send thank you notes to all stakeholders, sponsors, and participants.</li>
+      </ul>
+  </div>
+</div>
+`;
+};
+
+document.getElementById('loadForm').onclick = function(event) {
+event.preventDefault(); // Prevent default link action
+let homeContent = document.getElementById('home-content');
+homeContent.innerHTML = ''; // Clear existing content
+
+// Load event form
+homeContent.innerHTML = `
+    <div class="form-container">
+        <h1>Event Form</h1>
+        <div class="organizer-details">
+            <h2>Organizer Details</h2>
+            <label for="organizer-name">Name:</label>
+            <input type="text" id="organizer_name" name="organizer_name">
+
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department">
+
+            <label for="mobile-no">Mobile No:</label>
+            <input type="tel" id="mobile_no" name="mobile_no">
+
+            <label for="task-id">Event Task Id:</label>
+            <input type="tel" id="task_id" name="task_id">
+
+            <label for="event-name">Event Name:</label>
+            <input type="tel" id="event_name" name="event_name">
+        </div>
+
+        <div class="date-time">
+            <h2>Date and Time</h2>
+            <label for="from-date">From Date:</label>
+            <input type="date" id="from-date" name="from-date">
+
+            <label for="to-date">To Date:</label>
+            <input type="date" id="to-date" name="to-date">
+
+            <label for="from-time">From Time:</label>
+            <input type="time" id="from-time" name="from-time">
+
+            <label for="to-time">To Time:</label>
+            <input type="time" id="to-time" name="to-time">
+        </div>
+
+        <div class="participants">
+            <h2>Participants</h2>
+            <label for="expected-participants">Expected Number of Participants:</label>
+            <input type="number" id="expected-participants" name="expected-participants">
+
+            <label for="internals">Internals:</label>
+            <input type="number" id="internals" name="internals">
+
+            <label for="externals">Externals:</label>
+            <input type="number" id="externals" name="externals">
+        </div>
+
+        <div class="guest-details">
+            <h2>Guest Details</h2>
+            <label for="no-of-guests">No of Guests:</label>
+            <input type="number" id="no-of-guests" name="no-of-guests">
+
+            <label for="guest-name">Name of the Guest:</label>
+            <input type="text" id="guest-name" name="guest-name">
+
+            <label for="guest-designation">Designation:</label>
+            <input type="text" id="guest-designation" name="guest-designation">
+
+            <label for="guest-org">Organisation/Industry:</label>
+            <input type="text" id="guest-org" name="guest-org">
+        </div>
+
+        <div class="event-requirements">
+            <h2>Event Requirements</h2>
+            <div class="radio-group">
+                <label>Financial Required:</label>
+                <label><input type="radio" id="financial-required-yes" name="financial-required" value="yes"> Yes</label>
+                <label><input type="radio" id="financial-required-no" name="financial-required" value="no"> No</label>
+            </div>
+
+            <div class="radio-group">
+                <label>Reward Points:</label>
+                <label><input type="radio" id="reward-points-yes" name="reward-points" value="yes"> Yes</label>
+                <label><input type="radio" id="reward-points-no" name="reward-points" value="no"> No</label>
+            </div>
+
+            <div class="radio-group">
+                <label>On-Duty Required:</label>
+                <label><input type="radio" id="on-duty-required-yes" name="on-duty-required" value="yes"> Yes</label>
+                <label><input type="radio" id="on-duty-required-no" name="on-duty-required" value="no"> No</label>
+            </div>
+
+            <div class="radio-group">
+                <label>Venue Required:</label>
+                <label><input type="radio" id="venue-required-yes" name="venue-required" value="yes"> Yes</label>
+                <label><input type="radio" id="venue-required-no" name="venue-required" value="no"> No</label>
+            </div>
+
+            <div class="radio-group">
+                <label>Photography Required:</label>
+                <label><input type="radio" id="photography-required-yes" name="photography-required" value="yes"> Yes</label>
+                <label><input type="radio" id="photography-required-no" name="photography-required" value="no"> No</label>
+            </div>
+
+            <div class="radio-group">
+                <label>Accessories Required:</label>
+                <label><input type="radio" id="accessories-required-yes" name="accessories-required" value="yes"> Yes</label>
+                <label><input type="radio" id="accessories-required-no" name="accessories-required" value="no"> No</label>
+            </div>
+            
+            <div class="radio-group">
+                <label>vehicle Required:</label>
+                <label><input type="radio" id="vehicle-required-yes" name="vehicle-required" value="yes"> Yes</label>
+                <label><input type="radio" id="vehicle-required-no" name="vehicle-required" value="no"> No</label>
+            </div>
+            
+            <div class="radio-group">
+                <label>Accommodation Required:</label>
+                <label><input type="radio" id="acc-required-yes" name="acc-required" value="yes"> Yes</label>
+                <label><input type="radio" id="acc-required-no" name="acc-required" value="no"> No</label>
+            </div>
+
+
+            <label for="other-requirements">Other Requirements, if any:</label>
+            <textarea id="other-requirements" name="other-requirements"></textarea>
+        </div>
+
+        <button type="submit" id="submit-button">Next</button>
+    </div>
+`;
+document.getElementById('submit-button').onclick = async function () {
+    // Collect form data
+    const formData = {
+        // Organizer Details
+        organizer_name: document.getElementById('organizer_name').value,
+        department: document.getElementById('department').value,
+        mobile_no: document.getElementById('mobile_no').value,
+        task_id: document.getElementById('task_id').value,
+        event_name: document.getElementById('event_name').value,
+        
+        // Date and Time
+        from_date: document.getElementById('from-date').value,
+        to_date: document.getElementById('to-date').value,
+        from_time: document.getElementById('from-time').value,
+        to_time: document.getElementById('to-time').value,
+        
+        // Participants
+        expected_participants: document.getElementById('expected-participants').value,
+        internals: document.getElementById('internals').value,
+        externals: document.getElementById('externals').value,
+
+        // Guest Details
+        no_of_guests: document.getElementById('no-of-guests').value,
+        guest_name: document.getElementById('guest-name').value.trim(),
+        guest_designation: document.getElementById('guest-designation').value.trim(),
+        guest_org: document.getElementById('guest-org').value.trim(),
+
+        // Event Requirements
+        financial_required: document.querySelector('input[name="financial-required"]:checked')?.value || 'no',
+        reward_points: document.querySelector('input[name="reward-points"]:checked')?.value || 'no',
+        on_duty_required: document.querySelector('input[name="on-duty-required"]:checked')?.value || 'no',
+        venue_required: document.querySelector('input[name="venue-required"]:checked')?.value || 'no',
+        photography_required: document.querySelector('input[name="photography-required"]:checked')?.value || 'no',
+        accessories_required: document.querySelector('input[name="accessories-required"]:checked')?.value || 'no',
+        vehicle_required: document.querySelector('input[name="vehicle-required"]:checked')?.value || 'no',
+        accommodation_required: document.querySelector('input[name="acc-required"]:checked')?.value || 'no',
+        other_requirements: document.getElementById('other-requirements').value.trim(),
+    };
+
+
+    console.log('Organizer Name:', formData.organizer_name);
+console.log('Department:', formData.department);
+console.log('Mobile No:', formData.mobile_no);
+
+ 
+
+    // Send data to the backend
+    try {
+            const response = await fetch('/submit_event_request/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCSRFToken(), // Add CSRF token if necessary
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert('Event data submitted successfully.');
+
+                // Redirect based on user choices
+                if (formData.venue_required === 'yes') {
+                    loadVenueForm();
+                } else if (formData.photography_required === 'yes') {
+                    loadPhotographyForm();
+                } else if (formData.accessories_required === 'yes') {
+                    loadAccessoriesForm();
+                } else if (formData.vehicle_required === 'yes') {
+                    loadVehicleForm();
+                } else if (formData.accommodation_required === 'yes') {
+                    loadAccommodationForm();
+                } else {
+                    document.getElementById('home-content').innerHTML = '<p>Form submitted successfully!</p>';
+                }
+            } else {
+                alert(`Error: ${result.message}`);
+            }
+        } catch (error) {
+            console.error('Error submitting the form:', error);
+            alert('An error occurred while submitting the form.');
+        }
+    };
+};
+
+// Function to retrieve the CSRF token
+function getCSRFToken() {
+    const csrfCookie = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('csrftoken='));
+    return csrfCookie ? csrfCookie.split('=')[1] : '';
+    return csrfToken;
+}
+
+function loadVenueForm() {
+            const homeContent = document.getElementById('home-content');
+            homeContent.innerHTML = `
+                <div class="form-container">
+                    <h1>Venue Requisition Form</h1>
+                    <form id="venue-form">
+                        <div class="form-group">
+                            <label for="task_id">Task ID</label>
+                            <input type="text" id="task_id" name="task_id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="no_of_venues">No. of Venues Required</label>
+                            <input type="number" id="no_of_venues" name="no_of_venues" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="audio_requirements">Audio Requirements</label>
+                            <textarea id="audio_requirements" name="audio_requirements"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+
+            document.getElementById('venue-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const venueData = {
+                    task_id: document.getElementById('task_id').value,
+                    no_of_venues: document.getElementById('no_of_venues').value,
+                    audio_requirements: document.getElementById('audio_requirements').value,
+                };
+
+                try {
+                    const response = await fetch('/submit_venue_form/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrfToken,
+                        },
+                        body: JSON.stringify(venueData),
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        alert('Venue Form Submitted Successfully');
+                        document.getElementById('home-content').innerHTML = '<p>All forms submitted successfully!</p>';
+                    } else {
+                        alert(`Error: ${result.message}`);
+                    }
+                } catch (error) {
+                    console.error('Error submitting venue form:', error);
+                    alert('An error occurred while submitting the venue form.');
+                }
+            }); }
+document.getElementById('photographyForm').onclick = function (event) {
+    event.preventDefault();
+    let homeContent = document.getElementById('home-content');
+    homeContent.innerHTML = `
+    <div class="form-container">
+        <h1>Photography Form</h1>
+       <form action="/submit-venue-form" method="POST" class="organizer-details">
+            <div class="form-group">
+                <label for="task-id">Task ID *</label>
+                <input type="text" id="task-id" name="task-id" placeholder="Enter Task ID" required>
+            </div>
+            <div class="form-group">
+                <label for="venue">Name of the Venue *</label>
+                <input type="text" id="venue" name="venue" placeholder="Enter Venue Name" required>
+            </div>
+            <div class="form-group">
+                <label for="requirements">Photography Requirements</label>
+                <textarea id="requirements" name="requirements" placeholder="Enter any special photography requirements"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="photography" name="services" value="photography"> Photography
+                </label>
+            </div>
+            <div class="form-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="video-recording" name="services" value="video-recording"> Video Recording
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="time">Preferred Time</label>
+                <input type="text" id="time" name="time" placeholder="Enter preferred time">
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="form-footer">
+            <p>Note: Fields marked with * are mandatory.</p>
+        </div>
+    </div>
+    `;
+};
+document.getElementById('accessoriesForm').onclick = function (event) {
+    event.preventDefault();
+    let homeContent = document.getElementById('home-content');
+    homeContent.innerHTML = `
+    <div class="form-container">
+        <h1>Accessories Form</h1>
+        <form action="/submit-accessories-form" method="POST" class="organizer-details">
+            <div class="form-group">
+                <label for="task-id">Task ID *</label>
+                <input type="text" id="task-id" name="task-id" placeholder="Enter Task ID" required>
+            </div>
+            <div class="form-group">
+                <label for="venue-name">Name of the Venue *</label>
+                <input type="text" id="venue-name" name="venue-name" placeholder="Enter Venue Name" required>
+            </div>
+            <div class="form-group">
+                <label for="large-memento">Large Memento</label>
+                <input type="number" id="large-memento" name="large-memento" placeholder="Enter quantity">
+            </div>
+            <div class="form-group">
+                <label for="small-memento">Small Memento</label>
+                <input type="number" id="small-memento" name="small-memento" placeholder="Enter quantity">
+            </div>
+            <div class="form-group">
+                <label for="shawl">Shawl</label>
+                <input type="number" id="shawl" name="shawl" placeholder="Enter quantity">
+            </div>
+            <div class="form-group">
+                <label for="water-bottles">Water Bottles</label>
+                <input type="number" id="water-bottles" name="water-bottles" placeholder="Enter quantity">
+            </div>
+            <div class="form-group">
+                <label for="pen-pencil">Pen/Pencil</label>
+                <input type="number" id="pen-pencil" name="pen-pencil" placeholder="Enter quantity">
+            </div>
+            <div class="form-group">
+                <label for="scribbling-pad">Scribbling Pad</label>
+                <input type="number" id="scribbling-pad" name="scribbling-pad" placeholder="Enter quantity">
+            </div>
+            <div class="form-group">
+                <label for="other-requirements">Other Requirements</label>
+                <textarea id="other-requirements" name="other-requirements" placeholder="Enter any other requirements"></textarea>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="form-footer">
+            <p>Note: Fields marked with * are mandatory.</p>
+        </div>
+    </div>
+    `;
+};
+document.getElementById('vehicleForm').onclick = function (event) {
+    event.preventDefault();
+    let homeContent = document.getElementById('home-content');
+    homeContent.innerHTML = `
+    <div class="local-vehicle">
+        <div class="form-container">
+            <h1>Vehicle Requirement Form</h1>
+            <form action="/submit-vehicle-form" method="POST" class="organizer-details">
+                <div class="form-group">
+                    <label for="task-id">Task ID *</label>
+                    <input type="text" id="task-id" name="task-id" required>
+                </div>
+                <div class="form-group">
+                    <label for="no-of-vehicles">No. of Vehicles Required *</label>
+                    <input type="number" id="no-of-vehicles" name="no-of-vehicles" required>
+                </div>
+                <div class="form-group">
+                    <label for="purpose-of-visit">Purpose of Visit</label>
+                    <textarea id="purpose-of-visit" name="purpose-of-visit"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Vehicle Types</label>
+                    <div class="vehicle-type-container">
+                        <label><input type="checkbox" name="vehicle-types" value="sedan"> Sedan</label>
+                        <label><input type="checkbox" name="vehicle-types" value="suv"> SUV</label>
+                        <label><input type="checkbox" name="vehicle-types" value="van"> Van</label>
+                        <label><input type="checkbox" name="vehicle-types" value="minibus"> Minibus</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="special-requirements">Special Requirements</label>
+                    <textarea id="special-requirements" name="special-requirements"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    `;
+};
+document.getElementById('accommodationFormButton').onclick = function (event) {
+            event.preventDefault();
+            let homeContent = document.getElementById('home-content');
+            homeContent.innerHTML = `
+            <div class="form-container">
+                <h1>Accommodation Form</h1>
+                     <form action="/submit-vehicle-form" method="POST" class="organizer-details">
+                    <div class="form-group">
+                        <label for="task-id">Task ID *</label>
+                        <input type="text" id="task-id" name="task-id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="no-of-participants">No. of Participants *</label>
+                        <input type="number" id="no-of-participants" name="no-of-participants" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="no-of-guests">No. of Guests</label>
+                        <input type="number" id="no-of-guests" name="no-of-guests">
+                    </div>
+                    <div class="form-group">
+                        <label for="accommodation-type">Accommodation Type</label>
+                        <select id="accommodation-type" name="accommodation-type">
+                            <option value="single-room">Single Room</option>
+                            <option value="double-room">Double Room</option>
+                            <option value="suite">Suite</option>
+                            <option value="shared">Shared</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="special-requirements">Special Requirements</label>
+                        <textarea id="special-requirements" name="special-requirements"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="arrival-date">Arrival Date *</label>
+                        <input type="date" id="arrival-date" name="arrival-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="departure-date">Departure Date *</label>
+                        <input type="date" id="departure-date" name="departure-date" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+            `;
+        };
+
+document.getElementById('logoutBtn').onclick = function(event) {
+event.preventDefault();  // Prevents the default anchor behavior
+window.location.href = 'login.html';  // Redirects to the login page
+};
+document.getElementById('logoutBtn').onclick = function(event) {
+event.preventDefault();
+window.location.href = 'login.html';
+};
+    // Sidebar toggle functionality
+    let sidebar = document.querySelector(".sidebar");
+    let sidebarBtn = document.querySelector(".sidebarBtn");
+
+    sidebarBtn.onclick = function () {
+        sidebar.classList.toggle("active");
+        if (sidebar.classList.contains("active")) {
+            sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+        } else {
+            sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        }
+    };
+
+
+  </script>
+  <script src="{% static 'js/script1.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose  Type</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Institution Logo -->
+        <img src="{% static 'images/bit.png' %}" alt="Bit Logo" class="logo">
+        
+        <h1>Choose Account Type</h1>
+        <div class="form-container">
+            <div class="option" id="user-option" onclick="redirectToLogin('user')">
+                <img src="{% static 'images/userlogo.png' %}" alt="User Logo" class="logo">
+                <span style="font-size: 30px; font-weight: bold;">User</span>
+            </div>
+            <div class="option" id="admin-option" onclick="redirectToLogin('admin')">
+                <img src="{% static 'images/admin.png' %}" alt="Admin Logo" class="logo">
+                <span style="font-size: 30px; font-weight: bold;">Admin</span>
+            </div>
+        </div>
+    </div>
+    <style>
+        style.css
+/* Ensure the html and body take up the full viewport height */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    background: linear-gradient(135deg, #e0e0e0, #f4f4f4); /* Smooth gradient background */
+}
+
+.container {
+    background: #ffffff; /* Clean white background */
+    padding: 50px; /* Increased padding for more space */
+    border-radius: 25px; /* More rounded corners */
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2); /* Deep shadow for more depth */
+    max-width: 800px; /* Wider container for spacious layout */
+    width: 100%;
+    text-align: center;
+    border: 1px solid #dcdcdc; /* Subtle border */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5%;
+
+}
+
+
+.institution-logo {
+    width: 150px; /* Larger logo for better visibility */
+    height: auto;
+    margin-bottom: 30px; /* Increased spacing below the logo */
+}
+
+h1 {
+    margin-bottom: 40px; /* Increased margin for more space */
+    color: #212121; /* Dark gray text */
+    font-size: 36px; /* Larger font size for prominence */
+    font-weight: 700; /* Bold text */
+    letter-spacing: 1px; /* Increased letter spacing */
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+.form-container {
+    display: flex;
+    justify-content: space-between; /* Even spacing between options */
+    width: 100%;
+    max-width: 700px; /* Fixed width for consistency */
+    gap: 70px; /* Increased space between the options */
+}
+
+.option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    flex: 1; /* Equal expansion */
+    padding: 30px; /* Increased padding for larger content */
+    border-radius: 20px; /* Slightly rounded corners */
+    background: #f3f3f3; /* Light gray background */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* Subtle shadow */
+    position: relative;
+}
+
+.option.selected {
+    border: 4px solid #81cff6; /* Ticket-like border color */
+    background: #ffffff; /* White background to contrast with border */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Enhanced shadow */
+}
+
+.option:hover {
+    transform: scale(1.05); /* Zoom effect on hover */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25); /* Darker shadow on hover */
+}
+
+.option-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* More space between logo and text */
+    background: #ffffff; /* White background for labels */
+    padding: 20px 35px; /* Adjusted padding */
+    border-radius: 30px; /* Rounded label */
+    border: 2px solid #eeeeee; /* Light border */
+    font-size: 22px; /* Larger font size for readability */
+    color: #555; /* Medium gray text */
+    transition: all 0.3s ease;
+}
+
+.logo {
+    width: 120px; /* Slightly larger logo */
+    height: 150px; /* Maintain aspect ratio */
+    object-fit:fill; /* Ensure proper fit */
+    border-radius: 100%; /* Round logos */
+    transition: transform 0.3s ease; /* Smooth effect */
+}
+
+.option:hover .logo {
+    transform: rotate(15deg); /* Rotate logo on hover */
+}
+
+button {
+    padding: 18px 40px;
+    border: none;
+    border-radius: 30px;
+    background: #63b8f0; /* Vibrant blue background */
+    color: white;
+    cursor: pointer;
+    font-size: 22px; /* Larger font size for prominence */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* Enhanced shadow */
+    margin-top: 30px; /* Space above the button */
+}
+
+button:hover {
+    background: #317abe; /* Darker blue on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 22px; /* Larger font size for visibility */
+    color: #212121; /* Dark gray text color */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .container {
+        padding: 40px; /* Slightly reduced padding */
+    }
+
+    .form-container {
+        flex-direction: column; /* Stack options vertically */
+        gap: 20px; /* Reduced gap */
+    }
+
+    .option {
+        width: 100%; /* Full width for options */
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 30px; /* Further reduced padding */
+    }
+
+    .institution-logo {
+        width: 120px; /* Smaller logo */
+    }
+
+    h1 {
+        font-size: 30px; /* Smaller font size */
+        margin-bottom: 30px; /* Reduced margin */
+    }
+
+    .form-container {
+        gap: 15px; /* Smaller gap between options */
+    }
+
+    .option {
+        padding: 20px; /* Reduced padding */
+    }
+
+    .option-content {
+        font-size: 18px; /* Smaller font size for labels */
+        padding: 15px 25px; /* Adjusted padding */
+    }
+
+    .logo {
+        width: 50px; /* Smaller logo */
+        height: 50px; /* Maintain aspect ratio */
+    }
+
+    button {
+        padding: 15px 30px; /* Adjusted padding */
+        font-size: 18px; /* Smaller font size */
+    }
+
+    #result {
+        font-size: 18px; /* Smaller font size */
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px; /* Minimal padding */
+    }
+
+    .institution-logo {
+        width: 100px; /* Even smaller logo */
+    }
+
+    h1 {
+        font-size: 24px; /* Smaller font size */
+        margin-bottom: 20px; /* Reduced margin */
+    }
+
+    .form-container {
+        gap: 10px; /* Minimal gap between options */
+    }
+
+    .option {
+        padding: 15px; /* Further reduced padding */
+    }
+
+ 
+
+    .logo {
+        width: 40px; /* Smaller logo */
+        height: 40px; /* Maintain aspect ratio */
+    }
+
+    button {
+        padding: 12px 25px; /* Adjusted padding */
+        font-size: 16px; /* Smaller font size */
+    }
+
+    #result {
+        font-size: 16px; /* Smaller font size */
+    }
+}
+    </style>
+    <script src="script.js"></script>
+    <script>
+    function redirectToLogin(accountType) {
+        if (accountType === 'user') {
+            window.location.href = 'userlogin.html'; // Replace with the actual path to the user login page
+        } else if (accountType === 'admin') {
+            window.location.href = 'adminlogin.html'; // Replace with the actual path to the admin login page
+        }
+    }
+</script>
+</body>
+</html>

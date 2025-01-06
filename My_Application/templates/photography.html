@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .photography-form-container {
+            width: 80%;
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .services {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .services label {
+            margin-bottom: 0.5rem;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="photography-form-container">
+        <h1 class="form-title">Photography Form</h1>
+        <form action="/submit_photography_form/" method="POST" class="photography-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="task_id">Task ID *</label>
+                <input type="text" id="task_id" name="task_id" required>
+            </div>
+            <div class="form-group">
+                <label for="venue_name">Venue Name *</label>
+                <input type="text" id="venue_name" name="venue_name" required>
+            </div>
+            <div class="form-group">
+                <label for="requirements">Photography Requirements</label>
+                <textarea id="requirements" name="requirements"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Services</label>
+                <div class="services">
+                    <label><input type="checkbox" name="services" value="photography"> Photography</label>
+                    <label><input type="checkbox" name="services" value="video-recording"> Video Recording</label>
+                    <label><input type="checkbox" name="services" value="drone-shots"> Drone Shots</label>
+                    <label><input type="checkbox" name="services" value="other"> Other</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="preferred_time">Preferred Time</label>
+                <input type="text" id="preferred_time" name="preferred_time">
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.querySelector('.photography-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const csrfToken = getCSRFToken();
+
+            const formData = {
+                task_id: document.getElementById('task_id').value,
+                venue_name: document.getElementById('venue_name').value,
+                requirements: document.getElementById('requirements').value,
+                services: Array.from(document.querySelectorAll('input[name="services"]:checked')).map(el => el.value),
+                preferred_time: document.getElementById('preferred_time').value,
+            };
+
+            try {
+                const response = await fetch('/submit_photography_form/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken,
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert('Photography Form Submitted Successfully');
+                } else {
+                    alert(`Error: ${result.message}`);
+                }
+            } catch (error) {
+                console.error('Error submitting photography form:', error);
+                alert('An error occurred while submitting the photography form.');
+            }
+        });
+
+        function getCSRFToken() {
+            const csrfCookie = document.cookie
+                .split('; ')
+                .find(row => row.startsWith('csrftoken='));
+            return csrfCookie ? csrfCookie.split('=')[1] : '';
+        }
+    </script>
+</body>
+</html>
